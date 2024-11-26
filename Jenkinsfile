@@ -25,6 +25,22 @@ pipeline{
                     }
                 }
             }
+            
+        }
+        stage('Start App and Run Tests'){
+        steps{
+            script{
+                sh 'npm start &'
+                sh 'wait-on http://localhost:8090'
+                sh 'npm test'
+            }
+        }
+        }
+        
+    }
+    post{
+        always{
+            echo "CI pipeline completed"
         }
     }
 }
